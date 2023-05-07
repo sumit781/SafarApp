@@ -3,7 +3,6 @@ import { Pressable, Text, TouchableOpacity, View } from "react-native"
 import {getTimeFormatted} from "../services"
 import { COLOR_PALATE } from "../constants"
 export default FlightCard=({item,styleContainer,isEditable,removeFlight})=>{
-  console.log(item)
     const {displayData:{airlines:{airlineName},source:{airport:{cityName:sourceCityName},depTime},destination:{airport:{cityName:destinationCityName},arrTime},totalDuration,stopInfo},fare}=item
     return(
       <View style={[{width:"90%",height:80,backgroundColor:'white',borderRadius:5,shadowColor: '#171717',alignSelf:'center',

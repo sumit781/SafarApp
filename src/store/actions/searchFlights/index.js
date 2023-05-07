@@ -1,4 +1,5 @@
 import axios from "axios"
+import { searchFlightApi } from "../../../api"
 
 export const SEARCH_FLIGHT_START="SEARCH_FLIGHT_START" 
 export const SEARCH_FLIGHT_END="SEARCH_FLIGHT_END" 
@@ -10,10 +11,10 @@ export const RESET_SEARCH_FLIGHT="RESET_SEARCH_FLIGHT"
 export const searchFlights=(dataInfo)=>{
     return async (dispatch)=>{
         try{
-            const response = await axios.get("https://api.npoint.io/4829d4ab0e96bfab50e7")
-            let {data:{data:{result}}}=response
-            console.log(result,dataInfo,'///')
-            if(response.data.message === "Success"){
+            const response = await searchFlightApi()
+            console.log(response)
+            let {data:{result}}=response
+            if(response.message === "Success"){
              dispatch({
                  type:SEARCH_FLIGHT_END,
                  data:result.filter((item)=>{

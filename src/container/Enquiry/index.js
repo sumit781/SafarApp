@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import SafeAreaWrapper from '../../components/SafeAreaWrapper'
 import LinearGradient from 'react-native-linear-gradient'
-import { Dimensions, Text, TextInput, View } from 'react-native'
+import { Alert, Dimensions, ScrollView, Text, TextInput, View } from 'react-native'
 import InputComponent from '../../components/inputComponent'
 import ButtonComponent from '../../components/ButtonComponent'
 import { connect, useDispatch, useSelector } from 'react-redux'
@@ -32,7 +32,10 @@ import { CLEAR_EDITING, createRequest, updateRequest } from '../../store/actions
     }
   },[isEditing])
   const onPressSearchFlight=useCallback(()=>{
-    
+    if(source==="" && destination===""){
+      Alert.alert("Empty Fields","Set source and destination")
+      return
+    }
     if(flightDetail===null){
       dispatch(searchFlights({
         from:source,
@@ -73,7 +76,6 @@ import { CLEAR_EDITING, createRequest, updateRequest } from '../../store/actions
   }
 
   const removeFlight = ()=>{
-    console.log("called")
     setFlightDetail(null)
     setNote("")
   }
@@ -93,15 +95,14 @@ import { CLEAR_EDITING, createRequest, updateRequest } from '../../store/actions
   },[isEditing])
 
   return (
-    <SafeAreaWrapper>
-      <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>     
-          <View style={{width:Dimensions.get('window').width*.93,minHeight:350,paddingBottom:30,backgroundColor:'white',borderRadius:50,shadowColor: '#171717',
+      <ScrollView scrollEnabled={true} contentContainerStyle={{flexGrow: 1,alignItems:'center',justifyContent:'center'}}>     
+          <View style={{width:Dimensions.get('window').width*.93,minHeight:350,paddingBottom:30,marginTop:20,backgroundColor:'white',borderRadius:50,shadowColor: '#171717',
             shadowOffset: {width: -2, height: 8},
             shadowOpacity:0.2,
             shadowRadius: 3,elevation:20,alignItems:'center',paddingTop:25}}>
               <Text style={{fontSize:18,fontWeight:"700",color:COLOR_PALATE.mainColor}}>ENQUIRY FORM</Text>
-              <InputComponent disabled={isEditing || flightDetail!==null} title={"From"} textState={source} updateState={setSource} />
-              <InputComponent disabled={isEditing || flightDetail!==null} title={"To"} textState={destination} updateState={setDestination} />
+              <InputComponent disabled={(isEditing&&flightDetail!==null) || flightDetail!==null} title={"From"} textState={source} updateState={setSource} />
+              <InputComponent disabled={(isEditing&&flightDetail!==null) || flightDetail!==null} title={"To"} textState={destination} updateState={setDestination} />
               <DateComponent title={"Departure"} date={date} setDate={setDate} /> 
               {flightDetail!==null?
               <>
@@ -115,8 +116,7 @@ import { CLEAR_EDITING, createRequest, updateRequest } from '../../store/actions
           </View>
           <ButtonComponent title={isEditing && flightDetail?"UPDATE":flightDetail?"REQUEST":"SEARCH FLIGHT"} onPress={onPressSearchFlight}/>
           <ButtonComponent title={"CLEAR ALL"} onPress={onclickClear}/>
-      </View>
-   </SafeAreaWrapper>
+      </ScrollView>
   )
 }
 

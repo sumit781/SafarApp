@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import HeaderWrapper from '../../components/headerWrapper';
 import { COLOR_PALATE, SORT_TYPES } from '../../constants';
 import CheckBox from '@react-native-community/checkbox';
-import { updateFlight, updateSort } from '../../store/actions/searchFlights';
+import { RESET_SEARCH_FLIGHT, updateFlight, updateSort } from '../../store/actions/searchFlights';
 import FlightCard from '../../components/FlightCard';
 
 
@@ -110,7 +110,6 @@ const useSort=(flightsList,sort)=>{
         return b.fare - a.fare
       }
     })
-    console.log(newArray)
     setSortedList(newArray)
   },[flightsList,sort])
 
@@ -125,7 +124,6 @@ const useFilter=(sortedArray,filterList)=>{
      Array = Array.filter((val,idex)=>{
          return filterList[val.displayData.airlines.airlineName]
        })
-       console.log(Array,'/// new Array')
     }
     setFilteredArray(Array)
   },[sortedArray,filterList])
@@ -144,7 +142,7 @@ const FlightsSearchList=({navigation,...props})=>{
     let [showModal,setShowModal]=useState(false)
     useEffect(()=>{
       return ()=>{
-        dispatch({type:CL})
+        dispatch({type:RESET_SEARCH_FLIGHT})
       }
     },[])
     let modalStateChange= useCallback(()=>{
@@ -153,7 +151,6 @@ const FlightsSearchList=({navigation,...props})=>{
       })
     },[])
     let selectItem=(item)=>{
-      console.log(item)
       props.route.params?.setFlight(item)
       navigation.goBack()
     }
@@ -164,8 +161,8 @@ const FlightsSearchList=({navigation,...props})=>{
         data={filteredArray}
         keyExtractor={(item)=>item.id}
         contentContainerStyle={{paddingTop:10,paddingBottom:10}} 
-        renderItem={({item})=>(
-          <Pressable onPress={()=>selectItem(item)}>
+        renderItem={({item,index})=>(
+          <Pressable key={item.id+index+""} onPress={()=>selectItem(item)}>
             <FlightCard isEditable={false} item={item} />
           </Pressable>
         )

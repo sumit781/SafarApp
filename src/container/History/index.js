@@ -10,7 +10,6 @@ import { EDIT_SELECTED_ITEM, updateRequest } from '../../store/actions/enquiry'
 let HistoryContainer=({navigation,...props}) => {
   const {enquiry}=useSelector(state => state)
   const dispatch=useDispatch()
-  console.log(enquiry)
   let selectItem=(item,index)=>{
     dispatch({type:EDIT_SELECTED_ITEM,data:{formDetail:item,index}})
     navigation.navigate({name:"Enquiry"})
@@ -24,7 +23,6 @@ let HistoryContainer=({navigation,...props}) => {
         keyExtractor={(item,index)=>index+Math.random()*10}
         contentContainerStyle={{paddingTop:10,paddingBottom:10}} 
         renderItem={({item,index})=>{
-          console.log(item,'/// item')
          return (
           <Pressable onPress={()=>selectItem(item,index)}>
             <HistoryCard item={item.flightDetail} date={item.date} />

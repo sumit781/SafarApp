@@ -20,7 +20,7 @@ export default function HeaderWrapper({children,styleHeader={},title="",navigati
     <View style={{flex:1}}>
       <View style={[{height:70,width:"100%",justifyContent:'center',alignItems:'center'},styleHeader]}> 
          <ScreenTitle title={title} />
-         <TouchableOpacity onPress={onPressBack} style={{width:50,height:50,position:'absolute',left:8,top:10,borderRadius:25,backgroundColor:'#FFFF',justifyContent:'center',alignItems:'center'}}>
+         <TouchableOpacity onPress={onPressBack} style={{width:40,height:40,position:'absolute',left:12,top:18,borderRadius:25,backgroundColor:'#FFFF',justifyContent:'center',alignItems:'center'}}>
          <Image source={require("../Assets/images/icons8-back-96.png")} style={{width:40,height:40}} resizeMode='center' />    
          </TouchableOpacity>
       </View>

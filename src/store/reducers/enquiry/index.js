@@ -14,7 +14,6 @@ const initialState={
 }
 
 export const enquiryReducer=(state = initialState,action)=>{
-    console.log(action.data,action.type)
     switch(action.type){   
         case CREATE_REQUEST:
             let history=[...state.history]

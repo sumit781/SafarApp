@@ -36,7 +36,6 @@ const searchFlightReducer=(state = initialState,action)=>{
             })
             return arr
         },[])
-        console.log(FlightList,'//// flights')
         return {
             ...state,
             flightsList:FlightList

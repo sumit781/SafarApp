@@ -1,4 +1,6 @@
 import axios from "axios"
+import { Alert } from "react-native"
+import { createRequestApi } from "../../../api"
 
 export const CREATE_REQUEST="CREATE_REQUEST_START"
 export const EDIT_REQUEST="EDIT_REQUEST"
@@ -8,10 +10,10 @@ export const CLEAR_EDITING="CLEAR_EDITING"
 export const UPDATE_SELECTED_ITEM="UPDATE_SELECTED_ITEM"
 
 export const createRequest=(data)=>{
-    console.log(data,'/// data')
-    return (dispatch)=>{
+    return async (dispatch)=>{
         try{      
-            const response = axios.get("https://api.npoint.io/d0fe9a5513208c354c52")
+            const response = await createRequestApi()
+            Alert.alert("Successfull",JSON.stringify(response))
             if(response){
                 dispatch({
                     type:CREATE_REQUEST,
@@ -25,9 +27,9 @@ export const createRequest=(data)=>{
 }
 
 export const updateRequest=(data)=>{
-    return (dispatch)=>{
+    return async (dispatch)=>{
         try{      
-            const response = axios.get("https://api.npoint.io/d0fe9a5513208c354c52")
+            const response = await createRequestApi()
             if(response){
                 dispatch({
                     type:UPDATE_SELECTED_ITEM,

@@ -223,6 +223,22 @@ android {
             keyPassword 'android'
         }
     }
+
+    flavorDimensions "version"
+
+    productFlavors {
+        dev {
+            dimension "version"
+            applicationIdSuffix ".dev"
+
+        }
+
+        prod {
+            dimension "version"
+            applicationIdSuffix ".prod"
+        }
+    }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
